@@ -11,7 +11,8 @@
 # abbr - state abbreviation used by USPS
 
 # county
-# fips_code - integer FIPS code used for lookup from HMDA data
+# state_fips_code - integer FIPS code used for lookup from HMDA data 
+# county_fips_code - integer FIPS code used for lookup from HMDA data
 # ansi_code - ANSI code for county
 # cbsa_code - Core Based Statistical Area code
 # name - county name
