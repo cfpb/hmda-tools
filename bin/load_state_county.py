@@ -17,47 +17,19 @@
 # land_area - land area in square meters
 # water_area - water area in square meters
 
-
-import csv, codecs, cStringIO
-
-class UTF8Recoder:
-    """
-    Iterator that reads an encoded stream and reencodes the input to UTF-8
-    """
-    def __init__(self, f, encoding):
-        self.reader = codecs.getreader(encoding)(f)
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        return self.reader.next().encode("utf-8")
-
-class UnicodeReader:
-    """
-    A CSV reader which will iterate over lines in the CSV file "f",
-    which is encoded in the given encoding.
-    """
-
-    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
-        f = UTF8Recoder(f, encoding)
-        self.reader = csv.reader(f, dialect=dialect, **kwds)
-
-    def next(self):
-        row = self.reader.next()
-        return [unicode(s, "utf-8") for s in row]
-
-    def __iter__(self):
-        return self
-
+import sys
+import os
+sys.path.append(os.getcwd())
 
 import argparse
 import zipfile
 import csv
 import string
 
-import requests
 from sqlalchemy import *
+
+from hmda_tools import download_file
+from hmda_tools.unicode_csv import UnicodeReader
 
 parser = argparse.ArgumentParser(description='Import 2010 Census county gazetteer data and load it into a database.')
 parser.add_argument('conn_str', help='connection string for the database')
@@ -88,12 +60,8 @@ def create_database(conn_str):
     metadata.create_all(engine)
 
 def download_gazetteer(gaz_file):
-    gazetteer_url = 'http://www.census.gov/geo/www/gazetteer/files/Gaz_counties_national.zip'
-    r = requests.get(gazetteer_url)
-    if r.status_code == 200:
-        with open(gaz_file, 'wb') as f:
-            for chunk in r.iter_content():
-                f.write(chunk)
+    gaz_url = 'http://www.census.gov/geo/www/gazetteer/files/Gaz_counties_national.zip'
+    download_file(gaz_url, gaz_file)
 
 def insert_data(gaz_file):
     conn = engine.connect()
