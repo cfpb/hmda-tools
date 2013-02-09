@@ -7,3 +7,7 @@ Tools to make analyzing HMDA data much easier.
   HMDA code sheets for 2010 and 2011.
 * `code_sheet.postgres.sql`: The lookup tables from the `code_sheet/`
   directory as a Postgres dump.
+
+Current Needs
+-------------
+* MSA codes in CSV/SQL format (http://www.census.gov/population/metro/files/lists/2009/List1.txt)
