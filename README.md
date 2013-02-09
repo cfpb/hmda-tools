@@ -3,6 +3,8 @@ hmda_tools
 
 Tools to make analyzing HMDA data much easier.
 
+* `bin/`: Scripts to load data.  
+** `bin/load_state_county.py`: Download and load the 2010 Census Gazetteer data, allowing you to associate state and county FIPS codes from HMDA to names and demographic data.
 * `code_sheet/`: CSV files containing all the lookup tables from the
   HMDA code sheets for 2010 and 2011.
 * `code_sheet.postgres.sql`: The lookup tables from the `code_sheet/`
