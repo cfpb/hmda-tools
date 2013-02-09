@@ -31,7 +31,7 @@ import string
 
 from sqlalchemy import *
 
-from hmda_tools import download_file
+from hmda_tools import download_file, mkdir_p
 from hmda_tools.unicode_csv import UnicodeReader
 
 parser = argparse.ArgumentParser(description='Import 2010 Census county gazetteer data and load it into a database.')
@@ -135,14 +135,16 @@ def insert_crosswalk_data(filename):
 
     
 if __name__ == "__main__":
-    gaz_zip_file = 'Gaz_counties_national.zip'
+    mkdir_p('tmp')
+    gaz_zip_file = 'tmp/Gaz_counties_national.zip'
     gaz_txt_file = 'Gaz_counties_national.txt'
-    crosswalk_file = 'crosswalk.txt'
+    crosswalk_file = 'tmp/crosswalk.txt'
    
     create_database(args.conn_str)
     download_gazetteer(gaz_zip_file)
     unzip_gazetteer(gaz_zip_file, gaz_txt_file)
     insert_gaz_data(gaz_txt_file)
+    os.remove(gaz_txt_file)
 
     download_crosswalk(crosswalk_file)
     insert_crosswalk_data(crosswalk_file)
