@@ -5,10 +5,12 @@
 
 import argparse
 
-from hmda_tools.cbsa import load_cbsa
+from hmda_tools import data
 
-parser = argparse.ArgumentParser(description='Import Dec 2009 Census CBSA data and load it into a database.')
+parser = argparse.ArgumentParser(description='Import HMDA code sheet data and load it into a database.')
 parser.add_argument('db_uri', help='connection string for the database')
 args = parser.parse_args()
-load_cbsa(args.db_uri)
+
+data.create_schemas(args.db_uri)
+data.load_code_sheet(args.db_uri)
     

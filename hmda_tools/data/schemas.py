@@ -127,3 +127,4 @@ def cbsa(metadata):
                  Column('cbsa_code', Integer, primary_key=True),
                  Column('parent_code', Integer, nullable=True),
                  Column('name', String(255), nullable=False))
+

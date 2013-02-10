@@ -4,12 +4,10 @@ hmda_tools
 Tools to make analyzing HMDA data much easier.
 
 * `bin/`: Scripts to load data.  
+  * `bin/hmda_create_schemas`: Create the schema needed for HMDA data.
+  * `bin/hmda_load_code_sheet`: Load all the data from the HMDA code sheet.
   * `bin/hmda_load_cbsa`: Download and load the Dec 2009 CBSA data, allowing you to the `msa_md` column from HMDA with a Metropolitian Statistical Area (MSA).
   * `bin/load_state_county.py`: Download and load the 2010 Census Gazetteer data, allowing you to associate state and county FIPS codes from HMDA to names and demographic data.
-* `code_sheet/`: CSV files containing all the lookup tables from the
-  HMDA code sheets for 2010 and 2011.
-* `code_sheet.postgres.sql`: The lookup tables from the `code_sheet/`
-  directory as a Postgres dump.
 
 How to download and load HMDA data
 ----------------------------------
