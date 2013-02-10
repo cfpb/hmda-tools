@@ -111,7 +111,7 @@ def county(metadata):
     return Table('county', metadata,
                  Column('county_fips_code', Integer, nullable=False),
                  Column('state_fips_code', Integer, nullable=False),
-                 UniqueConstraint('county_fips_code', 'state_fips_code'),
+                 PrimaryKeyConstraint('county_fips_code', 'state_fips_code'),
                  Column('ansi_code', String(8), nullable=False),
                  Column('cbsa_code', Integer, nullable=True),
                  Column('name', String(255), nullable=False),

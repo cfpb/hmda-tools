@@ -11,10 +11,9 @@
 import os, re, string, tempfile
 
 from sqlalchemy import MetaData, Table, Column, Integer, String, create_engine
-import requests
 
-from . import download_file
-from .unicode_csv import UnicodeReader
+from .. import download_file
+from ..unicode_csv import UnicodeReader
 
 def load_cbsa(db_uri):
     filename = download_cbsa()

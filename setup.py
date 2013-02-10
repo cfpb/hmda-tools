@@ -23,6 +23,8 @@ setup(name='hmda_tools',
         'sh',
       ],
       scripts=[
+        'bin/hmda_create_schemas',
+        'bin/hmda_load_code_sheet',
         'bin/hmda_load_cbsa',
         'bin/load_state_county.py',
         'bin/extract_geo_data.py'

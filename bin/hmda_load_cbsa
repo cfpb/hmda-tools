@@ -5,7 +5,7 @@
 
 import argparse
 
-from hmda_tools.cbsa import load_cbsa
+from hmda_tools.data.cbsa import load_cbsa
 
 parser = argparse.ArgumentParser(description='Import Dec 2009 Census CBSA data and load it into a database.')
 parser.add_argument('db_uri', help='connection string for the database')
