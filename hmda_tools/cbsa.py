@@ -16,7 +16,7 @@ import requests
 from . import download_file
 from .unicode_csv import UnicodeReader
 
-def load_cbsa(database_uri):
+def load_cbsa(db_uri):
     filename = download_cbsa()
 
     engine = create_engine(db_uri)

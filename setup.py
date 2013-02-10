@@ -22,8 +22,8 @@ setup(name='hmda_tools',
         'argparse'
       ],
       scripts=[
+        'bin/hmda_load_cbsa',
         'bin/load_state_county.py',
-        'bin/load_cbsa.py',
         'bin/extract_geo_data.py'
       ],
       zip_safe=False)
