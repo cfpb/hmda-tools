@@ -44,7 +44,6 @@ def insert_cbsa_data(engine, cbsa_file):
     with open(cbsa_file, 'r') as cbsa_fh:
         for line in cbsa_fh:
             if valid_line.match(line):
-                print line
                 cbsa_code = line[0:5].strip()
                 div_code = line[8:13].strip()
                 fips_code = line[16:21].strip()
