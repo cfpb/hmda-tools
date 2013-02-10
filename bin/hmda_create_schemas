@@ -1,0 +1,11 @@
+#!/usr/bin/env python
+
+import argparse
+
+from hmda_tools import data
+
+parser = argparse.ArgumentParser(description='Create HMDA schema in a database.')
+parser.add_argument('db_uri', help='connection string for the database')
+args = parser.parse_args()
+data.create_schemas(args.db_uri)
+

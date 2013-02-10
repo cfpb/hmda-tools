@@ -19,7 +19,8 @@ setup(name='hmda_tools',
         'sqlalchemy',
         'sqlsoup',
         'requests',
-        'argparse'
+        'argparse',
+        'sh',
       ],
       scripts=[
         'bin/hmda_load_cbsa',
