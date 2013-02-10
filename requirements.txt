@@ -1,3 +1,4 @@
 sqlalchemy
+sqlsoup
 requests
 argparse
