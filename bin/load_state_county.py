@@ -32,7 +32,7 @@ import string
 
 from sqlalchemy import *
 
-from hmda_tools import download_file, mkdir_p
+from hmda_tools import download_file
 from hmda_tools.unicode_csv import UnicodeReader
 
 parser = argparse.ArgumentParser(description='Import 2010 Census county gazetteer data and load it into a database.')
@@ -65,9 +65,9 @@ county = Table('county', metadata,
 def create_database(conn_str):
     metadata.create_all(engine)
 
-def download_gazetteer(gaz_file):
+def download_gazetteer():
     gaz_url = 'http://www.census.gov/geo/www/gazetteer/files/Gaz_counties_national.zip'
-    download_file(gaz_url, gaz_file)
+    return download_file(gaz_url)
 
 def unzip_gazetteer(gaz_zip_file, gaz_txt_file):
     gaz_zip = zipfile.ZipFile(gaz_zip_file)
@@ -110,9 +110,9 @@ def insert_gaz_data(gaz_file):
                          latitude=row['INTPTLAT'],
                          longitude=row['INTPTLONG'])
 
-def download_crosswalk(filename):
+def download_crosswalk():
     crosswalk_url = "http://www.nber.org/cbsa-msa-fips-ssa-county-crosswalk/2011/FY%2011%20NPRM%20County%20to%20CBSA%20Xwalk.txt"
-    download_file(crosswalk_url, filename)
+    return download_file(crosswalk_url)
 
 
 def insert_crosswalk_data(filename):
@@ -136,16 +136,13 @@ def insert_crosswalk_data(filename):
 
     
 if __name__ == "__main__":
-    mkdir_p('tmp')
-    gaz_zip_file = 'tmp/Gaz_counties_national.zip'
     gaz_txt_file = 'Gaz_counties_national.txt'
-    crosswalk_file = 'tmp/crosswalk.txt'
    
     create_database(args.conn_str)
-    download_gazetteer(gaz_zip_file)
+    gaz_zip_file = download_gazetteer()
     unzip_gazetteer(gaz_zip_file, gaz_txt_file)
     insert_gaz_data(gaz_txt_file)
     os.remove(gaz_txt_file)
 
-    download_crosswalk(crosswalk_file)
+    crosswalk_file = download_crosswalk()
     insert_crosswalk_data(crosswalk_file)
