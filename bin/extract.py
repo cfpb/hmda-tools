@@ -2,7 +2,10 @@
 
 import sys
 import os
+import cStringIO
 import csv
+import zipfile
+
 sys.path.append(os.getcwd())
 
 import argparse
@@ -30,33 +33,36 @@ def clean_filename(name):
     slugified = trimmed.lower().replace(',', '').replace(' ','_').replace('/','+')
     return slugified
 
+def write_zipped_extract(path, base_name, resultset):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    zipfile_path = os.path.join(path, "%s.zip" % base_name)
+    with zipfile.ZipFile(zipfile_path, 'w') as zipped_outfile:
+        outfile = cStringIO.StringIO()
+        writer = csv.writer(outfile)
+        writer.writerow(HMDA_COLUMNS)
+        writer.writerows(resultset)
+        zipped_outfile.writestr("%s.csv" % base_name, outfile.getvalue(), zipfile.ZIP_DEFLATED)
+        outfile.close()
+        return zipfile_path
+
 def extract_counties(db):
     counties= db.execute('select county_fips_code, state_fips_code, name as county_name, state.abbr as state_abbr from county, state where state_fips_code=fips_code')
     for county in counties:
         county_fips, state_fips, county_name, state_abbr = county
         destination_dir='extracts/county/%s' % state_abbr
-        mkdir_p(destination_dir)
-        outfile_name = destination_dir +'/' + clean_filename(county_name) + '.csv'
-        print "writing county %s(%s) to %s"%  (county_name, state_abbr, outfile_name)
-        with open(outfile_name, 'w') as outfile:
-            writer=csv.writer(outfile)
-            hmda_records=db.execute('select * from hmda where state_code= %s and county_code = %s' % (state_fips, county_fips))
-            writer.writerow(HMDA_COLUMNS)
-            for row in hmda_records:
-                writer.writerow(row)
-        
+        base_name = clean_filename(county_name)
+        hmda_records=db.execute('select * from hmda where state_code= %s and county_code = %s' % (state_fips, county_fips))
+        zipped_filename = write_zipped_extract(destination_dir, base_name, hmda_records)
+        print "write county %s(%s) to %s"%  (county_name, state_abbr, zipped_filename)
 
 def extract_msas(db):
     for cbsa in db.cbsa.all():
-        outfile_name=clean_filename(cbsa.name)
-        print "writing MSA %s to %s.csv" % (cbsa.name, outfile_name)
-        with open('extracts/msa/%s.csv' % outfile_name, 'w') as outfile:
-            writer=csv.writer(outfile)
-            hmda_records=db.execute('select * from hmda where msa_md = %s' % cbsa.cbsa_code)
-            writer.writerow(HMDA_COLUMNS)
-            for row in hmda_records:
-                writer.writerow(row)
-
+        base_name = clean_filename(cbsa.name)
+        hmda_records = db.execute('select * from hmda where msa_md = %s' % cbsa.cbsa_code)
+        zipped_filename = write_zipped_extract('extracts/msa', base_name, hmda_records) 
+        print "wrote %s to %s" % (cbsa.name, zipped_filename)
 
 
 if __name__ == '__main__':
@@ -65,7 +71,5 @@ if __name__ == '__main__':
     parser.add_argument('conn_str', help='connection string for the database')
     args = parser.parse_args()
     db = sqlsoup.SQLSoup(args.conn_str)
-    mkdir_p('extracts/county')
+    extract_msas(db)
     extract_counties(db)
-    mkdir_p('extracts/msa')
-    extract_msas(db) 
