@@ -13,7 +13,7 @@ setup(name='hmda_tools',
       url='http://github.com/crnixon/hmda_tools',
       author='Clinton Dreisbach and others',
       author_email='clinton@dreisbach.us',
-      license='Public domain',
+      license='Apache 2.0',
       packages=['hmda_tools'],
       install_requires=[
         'sqlalchemy',
