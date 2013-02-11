@@ -1,4 +1,4 @@
-hmda_tools
+hmda-tools
 ==========
 
 Tools to make analyzing HMDA data much easier.
@@ -8,9 +8,21 @@ Tools to make analyzing HMDA data much easier.
   * `bin/hmda_load_code_sheet`: Load all the data from the HMDA code sheet.
   * `bin/hmda_load_cbsa`: Download and load the Dec 2009 CBSA data, allowing you to the `msa_md` column from HMDA with a Metropolitian Statistical Area (MSA).
   * `bin/hmda_load_geo`: Download and load the 2010 Census Gazetteer data, allowing you to associate state and county FIPS codes from HMDA to names and demographic data.
+  
+## HMDA
 
-How to download and load HMDA data
-----------------------------------
+"HMDA" refers to the [Home Mortgage Disclosure Act][hmda], a law that
+requires financial institutions to maintain and annually disclose data
+about home purchases, home purchase pre-approvals, home improvement,
+and refinance applications. This data is made public and is available
+from the US Government at the [FFIEC HMDA Products][hmda-products]
+site.
+
+[hmda]: http://en.wikipedia.org/wiki/Home_Mortgage_Disclosure_Act
+[hmda-products]: http://www.ffiec.gov/hmda/hmdaproducts.htm
+  
+## How to download and load HMDA data
+
 The following commands will load the 2011 HMDA data into MySQL. Please feel free to contribute a better automated way to work with multiple DBs.
 
 ```sh
@@ -19,8 +31,7 @@ unzip -p hmda11.zip | sed 's/NA//g' | sed 's/ //g' > hmd11c.csv
 mysql -e 'load data local infile 'hmda11c.csv' into table hmda fields terminated by ',' lines terminated by "\n";'
 ```
 
-Public Domain
---------------
+## Public Domain
 
 <p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
   <a rel="license"
@@ -30,12 +41,12 @@ Public Domain
   <br />
   To the extent possible under law,
   <a rel="dct:publisher"
-     href="http://github.com/crnixon/hmda_tools">
+     href="https://github.com/crnixon/">
     <span property="dct:title">Clinton Dreisbach</span></a>
   has waived all copyright and related or neighboring rights to
   <span property="dct:title">hmda_tools</span>.
 This work is published from:
 <span property="vcard:Country" datatype="dct:ISO3166"
-      content="US" about="http://github.com/crnixon/hmda_tools">
+      content="US" about="http://github.com/crnixon/hmda-tools">
   United States</span>.
 </p>
