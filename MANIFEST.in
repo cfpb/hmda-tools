@@ -1,3 +1,4 @@
 include README.rst
 include TERMS.txt
+include docs/*
 include hmda_tools/data/code_sheet_data/*
