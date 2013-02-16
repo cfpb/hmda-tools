@@ -1,5 +1,6 @@
 from sqlalchemy import *
 
+
 def hmda(metadata):
     return Table('hmda', metadata,
                  Column('year', Integer, nullable=False, index=True),
@@ -49,63 +50,81 @@ def hmda(metadata):
                  Column('number_of_family_units', Integer),
                  Column('application_date_indicator', Integer))
 
+
 def CodeTable(name, metadata):
     return Table(name, metadata,
                  Column('id', Integer, primary_key=True),
                  Column(name, String(255), nullable=False))
 
+
 def action_taken(metadata):
     return CodeTable('action_taken', metadata)
+
 
 def agency(metadata):
     return Table('agency', metadata,
                  Column('id', Integer, primary_key=True),
                  Column('agency_abbr', String(10), nullable=False),
                  Column('agency', String(255), nullable=False))
-                 
+
+
 def denial_reason(metadata):
     return CodeTable('denial_reason', metadata)
+
 
 def edit_status(metadata):
     return CodeTable('edit_status', metadata)
 
+
 def ethnicity(metadata):
     return CodeTable('ethnicity', metadata)
+
 
 def hoepa(metadata):
     return CodeTable('hoepa', metadata)
 
+
 def lien_status(metadata):
     return CodeTable('lien_status', metadata)
+
 
 def loan_purpose(metadata):
     return CodeTable('loan_purpose', metadata)
 
+
 def loan_type(metadata):
     return CodeTable('loan_type', metadata)
+
 
 def owner_occupancy(metadata):
     return CodeTable('owner_occupancy', metadata)
 
+
 def preapproval(metadata):
     return CodeTable('preapproval', metadata)
+
 
 def property_type(metadata):
     return CodeTable('property_type', metadata)
 
+
 def purchaser_type(metadata):
     return CodeTable('purchaser_type', metadata)
+
 
 def race(metadata):
     return CodeTable('race', metadata)
 
+
 def sex(metadata):
     return CodeTable('sex', metadata)
+
 
 def state(metadata):
     return Table('state', metadata,
                  Column('fips_code', Integer, primary_key=True),
                  Column('abbr', String(2), nullable=False))
+
 
 def county(metadata):
     return Table('county', metadata,
@@ -122,9 +141,9 @@ def county(metadata):
                  Column('latitude', String(20)),
                  Column('longitude', String(20)))
 
+
 def cbsa(metadata):
     return Table('cbsa', metadata,
                  Column('cbsa_code', Integer, primary_key=True),
                  Column('parent_code', Integer, nullable=True),
                  Column('name', String(255), nullable=False))
-

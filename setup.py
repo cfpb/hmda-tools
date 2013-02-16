@@ -1,10 +1,27 @@
 #!/usr/bin/env python
 
 from setuptools import setup
+from setuptools.command.test import test as TestCommand
+import sys
+
+
+class PyTest(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        #import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(self.test_args)
+        sys.exit(errno)
+
 
 def readme():
     with open('README.rst') as f:
         return f.read()
+
 
 def requirements():
     with open('requirements.txt') as f:
@@ -27,6 +44,8 @@ setup(name='hmda_tools',
         'bin/hmda_load_geo',
         'bin/hmda_extract_geo_data'
       ],
+      tests_require=['pytest'],
+      cmdclass={'test': PyTest},
       zip_safe=False,
       classifiers=[
         'Development Status :: 3 - Alpha',

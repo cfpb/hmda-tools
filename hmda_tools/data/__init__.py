@@ -1,12 +1,17 @@
-import os, os.path, csv, string
+import os
+import os.path
+import csv
+import string
 
 from sqlalchemy import MetaData, create_engine
 import sqlsoup
 
 from . import schemas
 
+
 def csv_row_to_dict(headers, row):
     return dict(zip(headers, map(string.strip, row)))
+
 
 def create_schemas(db_uri):
     engine = create_engine(db_uri)
@@ -34,6 +39,7 @@ def create_schemas(db_uri):
 
     metadata.create_all(engine)
     engine.dispose()
+
 
 def load_code_sheet(db_uri):
     db = sqlsoup.SQLSoup(db_uri)
@@ -68,7 +74,6 @@ def load_code_sheet(db_uri):
                 table.insert(**row)
 
         db.commit()
-
 
 
 def load_hmda(db_uri, year):
