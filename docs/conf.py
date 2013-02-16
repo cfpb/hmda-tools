@@ -42,7 +42,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'hmda_tools'
-copyright = u'2013, Clinton Dreisbach, CFPB'
+copyright = u'Public domain'
+html_show_copyright = False
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
