@@ -11,7 +11,7 @@ def csv_row_to_dict(headers, row):
 def create_schemas(db_uri):
     engine = create_engine(db_uri)
     metadata = MetaData()
-    
+
     schemas.action_taken(metadata)
     schemas.agency(metadata)
     schemas.cbsa(metadata)
@@ -31,13 +31,13 @@ def create_schemas(db_uri):
     schemas.race(metadata)
     schemas.sex(metadata)
     schemas.state(metadata)
-    
+
     metadata.create_all(engine)
     engine.dispose()
 
 def load_code_sheet(db_uri):
     db = sqlsoup.SQLSoup(db_uri)
-    
+
     tables = [
         'action_taken',
         'agency',
@@ -59,17 +59,17 @@ def load_code_sheet(db_uri):
         table = db.entity(table_name)
         table.delete()
         filename = os.path.join(os.path.dirname(__file__),
-                                "code_sheet_data/%s.csv" % table_name)                
+                                "code_sheet_data/%s.csv" % table_name)
         with open(filename, 'rb') as csvfile:
-            reader = csv.reader(csvfile)        
+            reader = csv.reader(csvfile)
             headers = map(string.strip, reader.next())
             for row in reader:
                 row = csv_row_to_dict(headers, row)
                 table.insert(**row)
-                
+
         db.commit()
 
-                
-    
+
+
 def load_hmda(db_uri, year):
     pass
