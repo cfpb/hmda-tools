@@ -6,26 +6,25 @@ def readme():
     with open('README.md') as f:
         return f.read()
 
-setup(name='hmda_tools',
+def requirements():
+    with open('requirements.txt') as f:
+        return map(lambda x: x.strip(), f.readlines())
+
+setup(name='hmda-tools',
       version='0.1',
       description='Tools to make working with HMDA data easier.',
       long_description=readme(),
-      url='http://github.com/crnixon/hmda_tools',
+      url='http://github.com/cfpb/hmda-tools',
       author='Clinton Dreisbach and others',
-      author_email='clinton@dreisbach.us',
-      license='Apache 2.0',
+      author_email='clinton.dreisbach@cfpb.gov',
+      license='Public domain',
       packages=['hmda_tools'],
-      install_requires=[
-        'sqlalchemy',
-        'sqlsoup',
-        'requests',
-        'argparse',
-        'sh',
-      ],
+      install_requires=requirements(),
       scripts=[
         'bin/hmda_create_schemas',
         'bin/hmda_load_code_sheet',
         'bin/hmda_load_cbsa',
         'bin/hmda_load_geo',
+        'bin/hmda_extract_geo_data'
       ],
       zip_safe=False)
