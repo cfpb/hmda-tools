@@ -1,0 +1,3 @@
+include README.rst
+include TERMS.txt
+include hmda_tools/data/code_sheet_data/*
