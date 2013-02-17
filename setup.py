@@ -28,7 +28,7 @@ def requirements():
         return map(lambda x: x.strip(), f.readlines())
 
 setup(name='hmda_tools',
-      version='0.1.1',
+      version='0.1.2',
       description='Tools to make working with HMDA data easier.',
       long_description=readme(),
       url='http://github.com/cfpb/hmda-tools',

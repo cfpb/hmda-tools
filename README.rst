@@ -16,3 +16,9 @@ purchases, home purchase pre-approvals, home improvement, and refinance applicat
 Documentation
 --------------
 Documentation can be found at https://hmda-tools.readthedocs.org/.
+
+Contributors
+-------------
+* Clinton Dreisbach
+* Ross Karchner
+* Diego Lapiduz

@@ -1,0 +1,12 @@
+0.1.2 - 2013/2/17
+=================
+* fixed bug preventing requirements from being found
+* added CHANGELOG and contributors
+
+0.1.1 - 2013/2/16
+=================
+* added documentation
+
+0.1.0 - 2013/2/15
+=================
+* initial release
