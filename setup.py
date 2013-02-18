@@ -28,14 +28,17 @@ def requirements():
         return map(lambda x: x.strip(), f.readlines())
 
 setup(name='hmda_tools',
-      version='0.1.2',
+      version='0.1.3',
       description='Tools to make working with HMDA data easier.',
       long_description=readme(),
       url='http://github.com/cfpb/hmda-tools',
       author='Clinton Dreisbach and others',
       author_email='clinton.dreisbach@cfpb.gov',
       license='Public domain',
-      packages=['hmda_tools'],
+      packages=[
+        'hmda_tools',
+        'hmda_tools.data',
+      ],
       install_requires=requirements(),
       scripts=[
         'bin/hmda_create_schemas',
