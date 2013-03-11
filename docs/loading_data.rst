@@ -49,5 +49,5 @@ To load the 2011 HMDA data into MySQL, run the following:
 .. code-block:: bash
 
   wget http://www.ffiec.gov/hmdarawdata/LAR/National/2011HMDALAR%20-%20National.zip -O hmda11.zip
-  unzip -p hmda11.zip | sed 's/NA//g' | sed 's/ //g' > hmd11c.csv
+  unzip -p hmda11.zip | sed 's/[nN][aA]//gI' | sed 's/ //g' > hmd11c.csv
   mysql -e 'load data local infile 'hmda11c.csv' into table hmda fields terminated by ',' lines terminated by "\n";'
