@@ -1,7 +1,7 @@
 hmda_tools
 ==========
 
-Tools to make analyzing HMDA data much easier.
+Tools to make analyzing mortgage application data much easier.
 
 HMDA
 ----
